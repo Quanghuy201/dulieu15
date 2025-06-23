@@ -105,8 +105,8 @@ class Bot(ZaloAPI):
                     current_user = users[user_index]
                     mentioned_name = current_user['name']
                     mentioned_user_id = current_user['uid']
-                    mention_text = f"@{mentioned_name}"
-                    message_text = f"{phrase} {mention_text}"
+                    mention_text = f"@1"
+                    message_text = f"{phrase} =)) {mention_text}"
                     offset = message_text.index(mention_text)
                     mention = Mention(
                         uid=mentioned_user_id,
@@ -114,6 +114,8 @@ class Bot(ZaloAPI):
                         length=len(mention_text)
                     )
                     full_message = Message(text=message_text, mention=mention)
+                    self.setTyping(thread_id, ThreadType.GROUP)
+                    time.sleep(1.5)
                     self.send(full_message, thread_id=thread_id, thread_type=ThreadType.GROUP)
                     print(f"✅ Đã gửi: {mentioned_name}: {phrase}")
                     user_index = (user_index + 1) % len(users)
